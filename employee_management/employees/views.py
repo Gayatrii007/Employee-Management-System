@@ -11,10 +11,6 @@ from .serializers import EmployeeSerializer
 User = get_user_model()
 
 class LoginView(TokenObtainPairView):
-    """
-    Login using username OR email + password.
-    Email is converted to username before JWT authentication.
-    """
 
     def post(self, request, *args, **kwargs):
         data = request.data.copy()
@@ -34,8 +30,7 @@ class LoginView(TokenObtainPairView):
                 {"detail": "Email or username is required."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        # 🔥 EMAIL → USERNAME CONVERSION (THIS WAS MISSING)
+            
         if email and not username:
             user = User.objects.filter(email=email).first()
             if not user:
@@ -52,10 +47,6 @@ class LoginView(TokenObtainPairView):
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 class EmployeeViewSet(viewsets.ModelViewSet):
-    """
-    Admin-only API for managing employees.
-    Uses soft delete instead of hard delete.
-    """
 
     serializer_class = EmployeeSerializer
     permission_classes = [IsAdminUser]
