@@ -44,7 +44,7 @@ Authorization: Bearer <access_token>
 ### Login using Email
 ```json
 {
-  "email": "admin@gmail.com",
+  "username": "admin@gmail.com",
   "password": "your_password"
 }
 ```
