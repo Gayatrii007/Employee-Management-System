@@ -40,12 +40,13 @@ class LoginView(TokenObtainPairView):
                 )
 
             data["username"] = user.username
-            data.pop("email")  # VERY IMPORTANT
+            data.pop("email")  
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        
 class EmployeeViewSet(viewsets.ModelViewSet):
 
     serializer_class = EmployeeSerializer
